@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.mobilevue.vod"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="11"
+        android:targetSdkVersion="17" />
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="ACC Mobile TV"
+        android:logo="@drawable/ic_logo"
+        android:theme="@style/AppTheme" >
+        <activity
+            android:name="com.mobilvue.vod.AuthenticationAcitivity"
+            android:label="ACC Mobile TV" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.RegisterActivity"
+            android:label="Registration" >
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.PlanActivity"
+            android:gravity="center"
+            android:label="Plans" >
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.IPTVActivity"
+            android:gravity="center"
+            android:label=""
+            android:launchMode="singleTask" >
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.OrderEventActivity"
+            android:label="OrderEvent" >
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.VideoPlayerActivity"
+            android:screenOrientation="landscape" >
+        </activity>
+        <activity
+            android:name="com.mobilvue.vod.EpgDetailsActivity"
+            android:label="EPG Details" >
+        </activity>
+    </application>
+
+</manifest>
