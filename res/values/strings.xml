@@ -2,7 +2,7 @@
 <resources>
 
     <string name="action_settings">Settings</string>
-    <string name="app_name">Mobilevue</string>
+    <string name="app_name">ACC Mobile TV</string>
     <string name="description">Media Controls</string>
     <string name="email_id">Email Id</string>
     <string name="end_time">End Time</string>
@@ -20,5 +20,4 @@
     <string name="start_time">Start Time</string>
     <string name="user_name">User Name</string>
     <string name="user_reg">User Registration</string>
-
 </resources>
