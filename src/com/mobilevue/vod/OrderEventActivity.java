@@ -2,7 +2,9 @@ package com.mobilevue.vod;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Locale;
 
 import org.codehaus.jackson.annotate.JsonAutoDetect.Visibility;
 import org.codehaus.jackson.annotate.JsonMethod;
@@ -66,9 +68,10 @@ public class OrderEventActivity extends Activity {
 			Intent i = getIntent();
 			Bundle extras = i.getExtras();
 			String eventId = extras.getString("eventid");
-			Calendar c = Calendar.getInstance();
-			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-			String formattedDate = df.format(c.getTime());
+			Date date = new Date();
+			SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd",
+					new Locale("en"));
+			String formattedDate = df.format(date);
 			String androidId = Settings.Secure.getString(
 					getApplicationContext().getContentResolver(),
 					Settings.Secure.ANDROID_ID);
