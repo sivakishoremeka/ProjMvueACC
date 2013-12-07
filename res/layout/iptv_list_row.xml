@@ -6,14 +6,15 @@
 
     <ImageView
         android:id="@+id/iptv_list_row_iv_ch_image"
-        android:layout_width="100dp"
-        android:layout_height="80dp"
+        android:layout_width="70dp"
+        android:layout_height="50dp"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_centerVertical="true"
         android:padding="5dp"
         android:src="@drawable/img_film_clap" />
 
     <LinearLayout
+         android:id="@+id/iptv_list_row_ll1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/iptv_list_row_iv_ch_image"
@@ -21,7 +22,7 @@
 
         <TextView
             android:id="@+id/iptv_list_row_tv_ch_name"
-            style="@android:style/TextAppearance.Large"
+            style="@android:style/TextAppearance.Medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1" />
@@ -34,16 +35,26 @@
 
             <Button
                 android:id="@+id/iptv_list_row_btn_watch"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
                 android:background="@drawable/btn_watch" />
 
             <Button
                 android:id="@+id/iptv_list_row_btn_epg"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
+                android:layout_width="60dp"
+                android:layout_height="20dp"
                 android:background="@drawable/btn_epg" />
         </LinearLayout>
     </LinearLayout>
+
+    <ListView
+        android:id="@+id/iptv_list_row_lv_epg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignBottom="@+id/iptv_list_row_ll1"
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/iptv_list_row_ll1" >
+        
+    </ListView>
 
 </RelativeLayout>
