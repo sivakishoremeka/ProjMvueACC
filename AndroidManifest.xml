@@ -6,7 +6,7 @@
 
     <uses-sdk
         android:minSdkVersion="11"
-        android:targetSdkVersion="17" />
+        android:targetSdkVersion="11" />
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
@@ -15,12 +15,15 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:logo="@drawable/ic_logo"
-        android:theme="@style/AppTheme" >
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme"
+        android:name="MyApplication">
         <activity
             android:name="com.mobilevue.vod.AuthenticationAcitivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label="@string/app_name" >
-            <intent-filter>
+             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -28,33 +31,54 @@
         </activity>
         <activity
             android:name="com.mobilevue.vod.RegisterActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label="" >
         </activity>
         <activity
             android:name="com.mobilevue.vod.PlanActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label="" >
         </activity>
         <activity
+            android:name="com.mobilevue.vod.MainActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            android:label="" 
+            android:launchMode="singleTask" >
+        </activity>
+       
+        <activity
             android:name="com.mobilevue.vod.IPTVActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label=""
             android:launchMode="singleTask" >
         </activity>
+                <activity
+            android:name="com.mobilevue.vod.VodActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
+            android:label=""
+            android:launchMode="singleTask" >
+        </activity>
+        
         <activity
-            android:name="com.mobilevue.vod.OrderEventActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:name="com.mobilevue.vod.VodMovieDetailsActivity"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label="" >
         </activity>
         <activity
             android:name="com.mobilevue.vod.VideoPlayerActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
             android:screenOrientation="landscape" >
         </activity>
         <activity
             android:name="com.mobilevue.vod.EpgDetailsActivity"
-            android:configChanges="keyboardHidden|orientation|screenSize"
+            android:configChanges="keyboardHidden|orientation"
+            android:screenOrientation="landscape"
             android:label="" >
         </activity>
     </application>

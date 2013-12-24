@@ -16,6 +16,7 @@ import com.mobilevue.data.ResponseObj;
 import com.mobilevue.utils.Utilities;
 import com.mobilevue.vod.R;
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -27,6 +28,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.provider.Settings;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.View;
 import android.widget.EditText;
@@ -37,21 +39,17 @@ public class RegisterActivity extends Activity {
 	public static String TAG = "RegisterActivity";
 	private final static String NETWORK_ERROR = "Network error.";
 	public final static String PREFS_FILE = "PREFS_FILE";
-	private SharedPreferences mPrefs;
-	private Editor mPrefsEditor;
 	private ProgressDialog mProgressDialog;
 	Handler handler = null;
 	EditText et_MobileNumber;
 	EditText et_FirstName;
 	EditText et_LastName;
 	EditText et_EmailId;
-	int clientId;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_register);
-
 		et_MobileNumber = (EditText) findViewById(R.id.a_reg_et_mobile_no);
 		et_FirstName = (EditText) findViewById(R.id.a_reg_et_first_name);
 		et_LastName = (EditText) findViewById(R.id.a_reg_et_last_name);
@@ -76,15 +74,41 @@ public class RegisterActivity extends Activity {
 	}
 
 	public void btnCancel_onClick(View v) {
-		/*
-		 * et_MobileNumber.setText(""); et_FirstName.setText("");
-		 * et_LastName.setText(""); et_EmailId.setText("");
-		 */
-		finish();
+		closeApp();
 	}
 
+	private void closeApp() {
+			AlertDialog dialog = new AlertDialog.Builder(RegisterActivity.this,
+					AlertDialog.THEME_HOLO_DARK).create();
+			dialog.setIcon(R.drawable.img_acc_confirm_dialog);
+			dialog.setTitle("Confirmation");
+			dialog.setMessage("Do you want to close the app?");
+			dialog.setCancelable(false);
+
+			dialog.setButton(DialogInterface.BUTTON_POSITIVE, "Yes",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int buttonId) {
+							RegisterActivity.this.finish();
+						}
+					});
+			dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "No",
+					new DialogInterface.OnClickListener() {
+						public void onClick(DialogInterface dialog, int buttonId) {
+
+						}
+					});
+			dialog.show();
+	}
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if ((keyCode == KeyEvent.KEYCODE_BACK)) {
+			closeApp();
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
+
 	private void CreateClient(ClientData client) {
-		// TODO Auto-generated method stub
 		new CreateClientAsyncTask().execute(client);
 	}
 
@@ -94,7 +118,6 @@ public class RegisterActivity extends Activity {
 
 		@Override
 		protected void onPreExecute() {
-			// TODO Auto-generated method stub
 			super.onPreExecute();
 			Log.d(TAG, "onPreExecute");
 			if (mProgressDialog != null) {
@@ -133,8 +156,9 @@ public class RegisterActivity extends Activity {
 					map.put("locale", "en");
 					map.put("fullname", "");
 					map.put("externalId", "");
-					map.put("clientCategory", "22");
+					map.put("clientCategory", "20");
 					map.put("active", "false");
+					map.put("flag", "false");
 					map.put("activationDate", "");
 					map.put("addressNo", "ghcv");
 					map.put("street", "hyderabad");
@@ -154,15 +178,14 @@ public class RegisterActivity extends Activity {
 				if (resObj.getStatusCode() == 200) {
 					ClientResponseData clientResData = readJsonUser(resObj
 							.getsResponse());
-					clientId = clientResData.getClientId();
-					mPrefs = getSharedPreferences(
+					int clientId = clientResData.getClientId();
+					SharedPreferences mPrefs = getSharedPreferences(
 							AuthenticationAcitivity.PREFS_FILE, 0);
-					mPrefsEditor = mPrefs.edit();
+					Editor mPrefsEditor = mPrefs.edit();
 					mPrefsEditor.putInt("CLIENTID", clientId);
 					mPrefsEditor.commit();
 					if (Utilities.isNetworkAvailable(getApplicationContext())) {
 						HashMap<String, String> map = new HashMap<String, String>();
-						// String androidId = "efa4c6299";
 						map.put("TagURL", "ownedhardware/" + clientId);
 						map.put("itemType", "1");// paymentInfo.getClientId());
 						map.put("dateFormat", "dd MMMM yyyy");
@@ -180,16 +203,11 @@ public class RegisterActivity extends Activity {
 						map.put("status", "");
 						resObj = Utilities.callExternalApiPostMethod(
 								getApplicationContext(), map);
-						// Log.d("RegAct-H/w Allocan", resObj.getsResponse());
 					} else {
 						resObj.setFailResponse(100, NETWORK_ERROR);
-						// return resObj;
 					}
-
 				}
 			}
-
-			// TODO Auto-generated method stub
 			return resObj;
 		}
 
@@ -206,9 +224,6 @@ public class RegisterActivity extends Activity {
 				Log.d("RegAct-H/w Allocan", resObj.getsResponse());
 				Intent intent = new Intent(RegisterActivity.this,
 						PlanActivity.class);
-				Bundle bundle = new Bundle();
-				bundle.putInt("CLIENTID", clientId);
-				intent.putExtras(bundle);
 				RegisterActivity.this.finish();
 				startActivity(intent);
 			} else
@@ -219,15 +234,11 @@ public class RegisterActivity extends Activity {
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		// getMenuInflater().inflate(R.menu.register, menu);
 		return true;
 	}
 
 	private ClientResponseData readJsonUser(String jsonText) {
-		// TODO Auto-generated method stub
 		Log.i("readJsonUser", "result is \r\n" + jsonText);
-
 		ClientResponseData response = new ClientResponseData();
 		try {
 			ObjectMapper mapper = new ObjectMapper().setVisibility(
@@ -235,16 +246,11 @@ public class RegisterActivity extends Activity {
 			mapper.configure(
 					DeserializationConfig.Feature.FAIL_ON_UNKNOWN_PROPERTIES,
 					false);
-			;
-
 			response = mapper.readValue(jsonText, ClientResponseData.class);
-			// System.out.println(response);
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-
 		return response;
 	}
 }

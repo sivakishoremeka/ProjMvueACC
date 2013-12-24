@@ -104,13 +104,13 @@ public class VideoPlayerActivity extends Activity implements
 						if (mProgressDialog.isShowing()) {
 							mProgressDialog.dismiss();
 						}
-					} else if (what == MediaPlayer.MEDIA_ERROR_TIMED_OUT) {
+					} /*else if (what == MediaPlayer.MEDIA_ERROR_TIMED_OUT) {
 						if (mProgressDialog.isShowing()) {
 							mProgressDialog.dismiss();
 						}
 						Log.d(TAG, "Request timed out.Closing MediaPlayer");
 						finish();
-					}
+					}*/
 					return false;
 				}
 			});
@@ -131,6 +131,9 @@ public class VideoPlayerActivity extends Activity implements
 							player.stop();
 						player.release();
 						player = null;
+						if (mProgressDialog.isShowing()) {
+							mProgressDialog.dismiss();
+						}
 						finish();
 					}
 					return false;

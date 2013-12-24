@@ -48,6 +48,15 @@ public class Utilities {
 				context.getString(R.string.server_url));
 		url.append(param.get("TagURL"));
 		param.remove("TagURL");
+
+		if (param.size() > 0) {
+			url.append("?");
+			for (int i = 0; i < param.size(); i++) {
+				url.append("&" + (String) param.keySet().toArray()[i] + "="
+						+ (String) param.values().toArray()[i]);
+			}
+		}
+
 		/*
 		 * // adding params to url for (int i = 0; i < param.size(); i++) {
 		 * url.append("&" + (String) param.keySet().toArray()[i] + "=" +
@@ -64,8 +73,11 @@ public class Utilities {
 			HttpGet httpGet = new HttpGet(url.toString());
 			httpGet.setHeader("X-Mifos-Platform-TenantId", "default");
 			httpGet.setHeader("Authorization", "Basic "
-					+"YWRtaW46b2JzQDEyMw=="); // this is for admin/obs@123(https://spark.openbillingsystem.com/mifosng-provider/api/v1/)
-				//	+ "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");// this is for billing/billingadmin@13(https://41.75.85.206:8080/mifosng-provider/api/v1/)// YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=
+					+ "YWRtaW46b2JzQDEyMw=="); // this is for
+												// admin/obs@123(https://spark.openbillingsystem.com/mifosng-provider/api/v1/)
+			// + "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");// this is for
+			// billing/billingadmin@13(https://41.75.85.206:8080/mifosng-provider/api/v1/)//
+			// YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=
 			httpGet.setHeader("Content-Type", "application/json");
 
 			Log.i("callClientsApi", "Calling " + httpGet.getURI());
@@ -124,14 +136,17 @@ public class Utilities {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setHeader("X-Mifos-Platform-TenantId", "default");
 			httpPost.setHeader("Authorization", "Basic "
-					+"YWRtaW46b2JzQDEyMw=="); // this is for admin/obs@123(https://spark.openbillingsystem.com/mifosng-provider/api/v1/)
-			//	+ "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");// this is for billing/billingadmin@13(https://41.75.85.206:8080/mifosng-provider/api/v1/)// YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=
-		
-			//		+ "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");
+					+ "YWRtaW46b2JzQDEyMw=="); // this is for
+												// admin/obs@123(https://spark.openbillingsystem.com/mifosng-provider/api/v1/)
+			// + "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");// this is for
+			// billing/billingadmin@13(https://41.75.85.206:8080/mifosng-provider/api/v1/)//
+			// YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=
+
+			// + "YmlsbGluZzpiaWxsaW5nYWRtaW5AMTM=");
 			httpPost.setHeader("Content-Type", "application/json");
 			// append device id to url
-			//String androidId = Settings.Secure.getString(
-			//		context.getContentResolver(), Settings.Secure.ANDROID_ID);
+			// String androidId = Settings.Secure.getString(
+			// context.getContentResolver(), Settings.Secure.ANDROID_ID);
 			/*
 			 * try { //json.put("deviceId",androidId);
 			 * json.put("deviceId","efa4c629924f8139"); } catch (JSONException
